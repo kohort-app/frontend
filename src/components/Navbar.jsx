@@ -3,6 +3,7 @@ import logoImage from '@/images/logo.png'
 
 import { Fragment } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
+import { useRouter } from 'next/router'
 
 import {
   PresentationChartLineIcon,
@@ -14,9 +15,9 @@ import {
 } from '@heroicons/react/24/outline'
 
 const navigation = [
-  { name: 'Home', href: '#', icon: HomeIcon, current: true },
+  { name: 'Home', href: '/', icon: HomeIcon, current: true },
   { name: 'Campaigns', href: '#', icon: PresentationChartLineIcon, current: false },
-  { name: 'Groups buying', href: '#', icon: ShoppingCartIcon, current: false },
+  { name: 'Groups buying', href: '/groupsbuying', icon: ShoppingCartIcon, current: false },
   { name: 'Payments', href: '#', icon: CreditCardIcon, current: false },
   { name: 'Customers', href: '#', icon: UserGroupIcon, current: false },
 ]
@@ -26,6 +27,8 @@ function classNames(...classes) {
 }
 
 export function Navbar({sidebarOpen = false, setSidebarOpen}) {
+
+  const router = useRouter();
 
   return (
     <section id="navbar">
@@ -90,12 +93,12 @@ export function Navbar({sidebarOpen = false, setSidebarOpen}) {
                         key={item.name}
                         href={item.href}
                         className={classNames(
-                          item.current
+                          item.href == router.pathname
                             ? 'bg-gray-900/25 text-white'
                             : 'text-white hover:text-white hover:bg-gray-900/25',
                           'group flex items-center px-2 py-2 text-base font-medium rounded-md'
                         )}
-                        aria-current={item.current ? 'page' : undefined}
+                        aria-current={item.href == router.pathname ? 'page' : undefined}
                       >
                         <item.icon className="mr-4 h-6 w-6 flex-shrink-0 text-white" aria-hidden="true" />
                         {item.name}
@@ -129,10 +132,10 @@ export function Navbar({sidebarOpen = false, setSidebarOpen}) {
                   key={item.name}
                   href={item.href}
                   className={classNames(
-                    item.current ? 'bg-gray-900/25 text-white' : 'text-white hover:text-white hover:bg-gray-900/25',
+                    item.href == router.pathname ? 'bg-gray-900/25 text-white' : 'text-white hover:text-white hover:bg-gray-900/25',
                     'group flex items-center px-2 py-2 text-sm leading-6 font-medium rounded-md'
                   )}
-                  aria-current={item.current ? 'page' : undefined}
+                  aria-current={item.href == router.pathname ? 'page' : undefined}
                 >
                   <item.icon className="mr-4 h-6 w-6 flex-shrink-0 text-white" aria-hidden="true" />
                   {item.name}

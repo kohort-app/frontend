@@ -31,8 +31,8 @@ export default withPageAuthRequired(function Home({ user }) {
 
         <div className="flex flex-1 flex-col lg:pl-64">
           <Header setSidebarOpen={setSidebarOpen} user={user} />
-          <main className="flex-1 pb-8">
-            <div class="py-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <main className="flex-1 py-10">
+            <div class="px-4 sm:px-6 lg:px-8">
               <h1 class="text-3xl font-medium leading-tight tracking-tight text-gray-900">Home</h1>
               <h3 className="text-lg mt-12 leading-6 text-gray-900">Last 30 days</h3>
 
