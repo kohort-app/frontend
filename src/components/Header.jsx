@@ -108,9 +108,9 @@ export function Header() {
             <div className="hidden md:block">
               <NavLink href="/login">Sign in</NavLink>
             </div>
-            <Button href="/register" color="blue">
+            <Button href="/api/auth/logout" color="blue">
               <span>
-                Get started <span className="hidden lg:inline">today</span>
+                Log out
               </span>
             </Button>
             <div className="-mr-1 md:hidden">

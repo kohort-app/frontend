@@ -10,7 +10,9 @@ import { PrimaryFeatures } from '@/components/PrimaryFeatures'
 import { SecondaryFeatures } from '@/components/SecondaryFeatures'
 import { Testimonials } from '@/components/Testimonials'
 
-export default function Home() {
+import { withPageAuthRequired } from '@auth0/nextjs-auth0';
+
+export default withPageAuthRequired(function Home({ user }) {
   return (
     <>
       <Head>
@@ -33,4 +35,4 @@ export default function Home() {
       <Footer />
     </>
   )
-}
+})
