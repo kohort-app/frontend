@@ -5,7 +5,7 @@ export default function Document(props) {
 
   return (
     <Html
-      className="h-full bg-kohort-50"
+      className="h-full"
       lang="en"
     >
       <Head>

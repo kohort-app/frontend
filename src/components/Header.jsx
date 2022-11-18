@@ -1,124 +1,97 @@
 import { Fragment } from 'react'
-import Link from 'next/link'
-import { Popover, Transition } from '@headlessui/react'
-import clsx from 'clsx'
+import { Menu, Transition } from '@headlessui/react'
 
-import { Button } from '@/components/Button'
-import { Container } from '@/components/Container'
-import { Logo } from '@/components/Logo'
-import { NavLink } from '@/components/NavLink'
+import {
+  Bars3CenterLeftIcon,
+  LifebuoyIcon,
+} from '@heroicons/react/24/outline'
+import {
+  ChevronDownIcon,
+} from '@heroicons/react/20/solid'
 
-function MobileNavLink({ href, children }) {
-  return (
-    <Popover.Button as={Link} href={href} className="block w-full p-2">
-      {children}
-    </Popover.Button>
-  )
+function classNames(...classes) {
+  return classes.filter(Boolean).join(' ')
 }
 
-function MobileNavIcon({ open }) {
-  return (
-    <svg
-      aria-hidden="true"
-      className="h-3.5 w-3.5 overflow-visible stroke-slate-700"
-      fill="none"
-      strokeWidth={2}
-      strokeLinecap="round"
-    >
-      <path
-        d="M0 1H14M0 7H14M0 13H14"
-        className={clsx(
-          'origin-center transition',
-          open && 'scale-90 opacity-0'
-        )}
-      />
-      <path
-        d="M2 2L12 12M12 2L2 12"
-        className={clsx(
-          'origin-center transition',
-          !open && 'scale-90 opacity-0'
-        )}
-      />
-    </svg>
-  )
-}
+export function Header({setSidebarOpen, user}) {
 
-function MobileNavigation() {
   return (
-    <Popover>
-      <Popover.Button
-        className="relative z-10 flex h-8 w-8 items-center justify-center [&:not(:focus-visible)]:focus:outline-none"
-        aria-label="Toggle Navigation"
+    <div className="flex h-16 flex-shrink-0 bg-kohort-50 shadow">
+      <button
+        type="button"
+        className="border-r border-gray-200 px-4 text-gray-400 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-cyan-500 lg:hidden"
+        onClick={() => setSidebarOpen(true)}
       >
-        {({ open }) => <MobileNavIcon open={open} />}
-      </Popover.Button>
-      <Transition.Root>
-        <Transition.Child
-          as={Fragment}
-          enter="duration-150 ease-out"
-          enterFrom="opacity-0"
-          enterTo="opacity-100"
-          leave="duration-150 ease-in"
-          leaveFrom="opacity-100"
-          leaveTo="opacity-0"
-        >
-          <Popover.Overlay className="fixed inset-0 bg-slate-300/50" />
-        </Transition.Child>
-        <Transition.Child
-          as={Fragment}
-          enter="duration-150 ease-out"
-          enterFrom="opacity-0 scale-95"
-          enterTo="opacity-100 scale-100"
-          leave="duration-100 ease-in"
-          leaveFrom="opacity-100 scale-100"
-          leaveTo="opacity-0 scale-95"
-        >
-          <Popover.Panel
-            as="div"
-            className="absolute inset-x-0 top-full mt-4 flex origin-top flex-col rounded-2xl bg-white p-4 text-lg tracking-tight text-slate-900 shadow-xl ring-1 ring-slate-900/5"
+        <span className="sr-only">Open sidebar</span>
+        <Bars3CenterLeftIcon className="h-6 w-6" aria-hidden="true" />
+      </button>
+      {/* Search bar */}
+      <div className="flex flex-1 justify-between px-4 sm:px-6 lg:mx-auto lg:px-8">
+        <div className="flex flex-1">
+          
+        </div>
+        <div className="ml-4 flex items-center md:ml-6">
+          <a
+            href="https://www.kohort.eu"
+            target="_blank"
+            className="rounded-full p-1 text-gray-400 hover:text-gray-500 "
           >
-            <MobileNavLink href="#features">Features</MobileNavLink>
-            <MobileNavLink href="#testimonials">Testimonials</MobileNavLink>
-            <MobileNavLink href="#pricing">Pricing</MobileNavLink>
-            <hr className="m-2 border-slate-300/40" />
-            <MobileNavLink href="/login">Sign in</MobileNavLink>
-          </Popover.Panel>
-        </Transition.Child>
-      </Transition.Root>
-    </Popover>
-  )
-}
+            <span className="sr-only">Help</span>
+            <LifebuoyIcon className="h-6 w-6" aria-hidden="true" />
+          </a>
 
-export function Header() {
-  return (
-    <header className="py-10">
-      <Container>
-        <nav className="relative z-50 flex justify-between">
-          <div className="flex items-center md:gap-x-12">
-            <Link href="#" aria-label="Home">
-              <Logo className="h-10 w-auto" />
-            </Link>
-            <div className="hidden md:flex md:gap-x-6">
-              <NavLink href="#features">Features</NavLink>
-              <NavLink href="#testimonials">Testimonials</NavLink>
-              <NavLink href="#pricing">Pricing</NavLink>
+          {/* Profile dropdown */}
+          <Menu as="div" className="relative ml-3">
+            <div>
+              <Menu.Button className="flex max-w-xs items-center rounded-full text-sm  lg:rounded-md lg:p-2 lg:hover:bg-gray-900/10">
+                <img
+                  className="h-8 w-8 rounded-full"
+                  src={user.picture}
+                />
+                <span className="ml-3 hidden text-sm font-medium text-gray-700 lg:block">
+                  <span className="sr-only">Open user menu for </span>{user.nickname}
+                </span>
+                <ChevronDownIcon
+                  className="ml-1 hidden h-5 w-5 flex-shrink-0 text-gray-400 lg:block"
+                  aria-hidden="true"
+                />
+              </Menu.Button>
             </div>
-          </div>
-          <div className="flex items-center gap-x-5 md:gap-x-8">
-            <div className="hidden md:block">
-              <NavLink href="/login">Sign in</NavLink>
-            </div>
-            <Button href="/api/auth/logout" color="blue">
-              <span>
-                Log out
-              </span>
-            </Button>
-            <div className="-mr-1 md:hidden">
-              <MobileNavigation />
-            </div>
-          </div>
-        </nav>
-      </Container>
-    </header>
+            <Transition
+              as={Fragment}
+              enter="transition ease-out duration-100"
+              enterFrom="transform opacity-0 scale-95"
+              enterTo="transform opacity-100 scale-100"
+              leave="transition ease-in duration-75"
+              leaveFrom="transform opacity-100 scale-100"
+              leaveTo="transform opacity-0 scale-95"
+            >
+              <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                <Menu.Item>
+                  {({ active }) => (
+                    <a
+                      href="profile"
+                      className={classNames(active ? 'bg-kohort-50' : '', 'block px-4 py-2 text-sm text-gray-700')}
+                    >
+                      Profile
+                    </a>
+                  )}
+                </Menu.Item>
+                <Menu.Item>
+                  {({ active }) => (
+                    <a
+                      href="api/auth/logout"
+                      className={classNames(active ? 'bg-kohort-50' : '', 'block px-4 py-2 text-sm text-gray-700')}
+                    >
+                      Sign out
+                    </a>
+                  )}
+                </Menu.Item>
+              </Menu.Items>
+            </Transition>
+          </Menu>
+        </div>
+      </div>
+    </div>
   )
 }
