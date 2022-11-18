@@ -24,11 +24,19 @@ module.exports = {
         '4xl': '2rem',
       },
       fontFamily: {
-        sans: ['Inter', ...defaultTheme.fontFamily.sans],
-        display: ['Lexend', ...defaultTheme.fontFamily.sans],
+        sans: ['Roboto', ...defaultTheme.fontFamily.sans],
+        display: ['Roboto', ...defaultTheme.fontFamily.sans],
       },
       maxWidth: {
         '2xl': '40rem',
+      },
+      colors: {
+        'kohort-50': '#f8f2ed',
+        'kohort-300': '#EAD4C4',
+        'kohort-500': '#EB6340',
+        'kohort-800': '#ED395E',
+
+        
       },
     },
   },
